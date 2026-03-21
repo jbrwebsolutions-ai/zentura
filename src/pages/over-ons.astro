@@ -1,0 +1,175 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { siteConfig } from '../config/site';
+
+const title = 'Over Ons';
+const description = 'Zentura BV — opgericht door Sjoerd Stel. Van uitzendkracht op de werkvloer naar strategisch personeelspartner. Eerlijk, snel, betrouwbaar en persoonlijk.';
+
+const waarden = [
+  {
+    title: 'Eerlijk',
+    desc: 'Geen mooie praatjes. Over tarieven, kandidaten en wat wel en niet kan.',
+    icon: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z'
+  },
+  {
+    title: 'Snel',
+    desc: 'Aanvragen en dezelfde dag iemand op de werkvloer. Geen procedures.',
+    icon: 'M13 10V3L4 14h7v7l9-11h-7z'
+  },
+  {
+    title: 'Betrouwbaar',
+    desc: 'Toezegging = nakomen. Bij uitval zorgen wij voor vervanging. Altijd.',
+    icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z'
+  },
+  {
+    title: 'Persoonlijk',
+    desc: 'Vast aanspreekpunt. Geen callcenter, geen wachtrij. Iemand die uw situatie kent.',
+    icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z'
+  },
+];
+---
+
+<Layout title={title} description={description}>
+
+  <!-- ═══ PAGE HERO ═══ -->
+  <section class="relative py-16 sm:py-24 overflow-hidden" style="background-color: #052771; border-bottom: 4px solid #fe7303;">
+    <!-- Watermark -->
+    <div class="absolute inset-0 flex items-center overflow-hidden pointer-events-none select-none" aria-hidden="true">
+      <span class="font-heading font-black text-white leading-none" style="font-size: clamp(60px, 14vw, 140px); opacity: 0.04; white-space: nowrap; padding-left: 1rem;">ZENTURA</span>
+    </div>
+    <div class="container-custom relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <!-- Links: heading -->
+        <div class="border-l-4 border-primary pl-6">
+          <p class="text-primary text-xs font-bold uppercase tracking-widest mb-3">Zentura — Ons verhaal</p>
+          <h1 class="font-heading text-5xl sm:text-6xl font-black text-white leading-tight">
+            Over Zentura
+          </h1>
+          <p class="text-blue-200/70 text-lg mt-4 leading-relaxed">
+            Van aanpakker op de werkvloer naar betrouwbare back-up partner voor uitzendbureaus.
+          </p>
+        </div>
+        <!-- Rechts: kernwaarden compact -->
+        <div class="hidden lg:grid grid-cols-2 gap-3">
+          {waarden.map((w) => (
+            <div class="border border-white/10 bg-white/5 p-4">
+              <p class="font-heading font-black text-white text-sm mb-1">{w.title}</p>
+              <p class="text-blue-200/50 text-xs leading-relaxed">{w.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ HET VERHAAL ═══ -->
+  <section class="section-padding bg-white">
+    <div class="container-custom">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+
+        <!-- Tekst blok -->
+        <div>
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-1 bg-primary flex-shrink-0"></div>
+            <span class="text-primary text-xs font-bold tracking-widest uppercase">Het verhaal</span>
+          </div>
+
+          <div class="space-y-5 text-gray-600 text-lg leading-relaxed">
+            <p>
+              Zentura is opgericht door <strong class="text-navy font-bold">Sjoerd Stel</strong>. Niet vanachter een bureau, maar vanuit de werkvloer zelf. Als jonge kracht heeft hij zelf jaren via uitzendbureaus gewerkt, in de logistiek, in magazijnen en bij events.
+            </p>
+            <p>
+              Hij weet precies wat uitzendbureaus nodig hebben en waar het vaak misgaat. <strong class="text-navy font-bold">Te veel partijen beloven veel en leveren weinig.</strong> Kandidaten die niet komen opdagen. Mensen zonder de juiste instelling. Onduidelijkheid over kosten.
+            </p>
+            <p>
+              Bij Zentura draait alles om één ding: <strong class="text-navy font-bold">de juiste mensen op de juiste plek, snel geregeld.</strong> Wij zijn de back-up partner die uitzendbureaus bellen wanneer zij zelf niet kunnen leveren. Persoonlijk bereikbaar, 24/7, met een 100% leveringsgarantie.
+            </p>
+          </div>
+        </div>
+
+        <!-- Missie quote -->
+        <div class="lg:pt-16">
+          <div class="border-2 border-primary p-8 relative">
+            <div class="absolute -top-4 left-6 bg-white px-3">
+              <span class="text-primary text-xs font-bold uppercase tracking-widest">Onze missie</span>
+            </div>
+            <blockquote class="font-heading text-xl font-black text-navy leading-snug mb-4">
+              "Van aanpakker op de werkvloer naar betrouwbare partner achter de partner."
+            </blockquote>
+            <p class="text-gray-500 text-sm leading-relaxed">
+              Flexibel personeel hoeft geen noodoplossing te zijn. Met de juiste back-up partner wordt het een structureel voordeel, voor uw bureau en voor de bedrijven die u bedient.
+            </p>
+            <div class="mt-6 pt-4 border-t border-gray-100">
+              <p class="text-navy font-bold font-heading text-sm">Sjoerd Stel</p>
+              <p class="text-gray-400 text-xs">Oprichter, Zentura BV</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ KERNWAARDEN ═══ -->
+  <section class="section-padding bg-cream border-y border-gray-100">
+    <div class="container-custom">
+
+      <div class="mb-12">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-1 bg-primary flex-shrink-0"></div>
+          <span class="text-primary text-xs font-bold tracking-widest uppercase">Kernwaarden</span>
+        </div>
+        <h2 class="font-heading text-3xl font-black text-navy">Vier principes. Geen compromissen.</h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {waarden.map((w) => (
+          <div class="group bg-white border-2 border-gray-100 hover:border-primary p-7 flex gap-5 transition-colors duration-200">
+            <div class="w-12 h-12 bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary transition-colors duration-200">
+              <svg class="w-5 h-5 text-primary group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d={w.icon} />
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-heading font-black text-navy text-xl mb-2">{w.title}</h3>
+              <p class="text-gray-500 text-sm leading-relaxed">{w.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ CTA ═══ -->
+  <section class="py-20 bg-grid" style="background-color: #161d30;">
+    <div class="container-custom">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+
+        <div>
+          <div class="w-12 h-1 bg-primary mb-5"></div>
+          <h2 class="font-heading text-3xl font-black text-white mb-3">
+            Werken met Zentura?
+          </h2>
+          <p class="text-gray-400 leading-relaxed">
+            Neem contact op en ontdek hoe wij uw personeelsvraagstuk direct oplossen.
+          </p>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="/contact/" class="inline-flex items-center justify-center gap-2 px-7 py-4 bg-primary hover:bg-primary-dark text-white font-bold text-sm transition-colors">
+            Contact opnemen
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+            </svg>
+          </a>
+          <a href="/diensten/" class="inline-flex items-center justify-center px-7 py-4 border-2 border-white/25 hover:border-white/50 text-white font-semibold text-sm transition-colors">
+            Bekijk onze diensten
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</Layout>

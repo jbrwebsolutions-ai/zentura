@@ -1,0 +1,383 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { siteConfig } from '../config/site';
+
+const title = 'Altijd personeel. Nooit excuses.';
+const description = 'Zentura is de vaste back-up partner voor uitzendbureaus in Noord Holland, Friesland en Groningen. Wij leveren gemotiveerde vakmensen wanneer uw bureau het zelf niet kan waarmaken.';
+
+const leveringsmethodes = [
+  {
+    stap: '01',
+    label: 'Bel of stuur een aanvraag',
+    desc: 'Vertel ons wat u nodig heeft. Telefonisch of via het formulier. Direct, geen rompslomp.',
+  },
+  {
+    stap: '02',
+    label: 'Bevestiging binnen 5 minuten',
+    desc: 'Wij koppelen direct terug of we kunnen leveren en wanneer. Geen vage beloftes.',
+  },
+  {
+    stap: '03',
+    label: 'Personeel op de werkvloer',
+    desc: 'Bij spoed binnen 60 minuten op locatie. Klaar om aan de slag te gaan.',
+  },
+];
+---
+
+<Layout title={title} description={description}>
+  <link slot="head" rel="preload" href="/images/hero.png" as="image" fetchpriority="high" />
+
+  <!-- ═══ HERO ═══ -->
+  <section class="relative min-h-[90vh] flex items-end overflow-hidden">
+
+    <!-- Achtergrond foto -->
+    <div class="absolute inset-0 z-0">
+      <img
+        src="/images/hero.png"
+        alt="Zentura — logistiek personeel aan het werk"
+        class="w-full h-full object-cover"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+        onerror="this.style.display='none'"
+      />
+      <!-- Sterke donkere overlay voor leesbaarheid -->
+      <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(5,6,15,0.97) 0%, rgba(5,6,15,0.75) 45%, rgba(5,6,15,0.35) 100%);"></div>
+    </div>
+
+    <!-- Content — onderin hero, links uitgelijnd -->
+    <div class="relative z-10 w-full pb-16 pt-32">
+      <div class="container-custom">
+        <div class="max-w-3xl">
+
+          <!-- Label balk -->
+          <div class="flex items-center gap-4 mb-8">
+            <div class="w-12 h-1 bg-primary flex-shrink-0"></div>
+            <span class="text-primary text-xs font-bold tracking-widest uppercase">B2B partner voor uitzendbureaus</span>
+          </div>
+
+          <!-- Headline -->
+          <h1 class="font-heading text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-[1.05] mb-6">
+            Altijd personeel.<br />
+            <span class="text-primary">Nooit excuses.</span>
+          </h1>
+
+          <!-- Subtext -->
+          <p class="text-gray-300 text-lg sm:text-xl mb-10 max-w-xl leading-relaxed">
+            De vaste back-up partner voor uitzendbureaus in Noord Holland, Friesland en Groningen.
+            Wij leveren wanneer uw bureau het zelf niet kan waarmaken.
+          </p>
+
+          <!-- CTAs -->
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a
+              href="/contact/"
+              class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary hover:bg-primary-dark text-white font-bold rounded text-base transition-colors"
+              style="box-shadow: 0 4px 24px rgba(254,115,3,0.35);"
+            >
+              Personeel aanvragen
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+              </svg>
+            </a>
+            <a
+              href="/tarieven/"
+              class="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-white/30 hover:border-white/60 text-white font-semibold rounded text-base transition-colors"
+            >
+              Bekijk tarieven
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ STATS BALK ═══ -->
+  <div style="background-color: #052771;">
+    <div class="container-custom">
+      <div class="grid grid-cols-2 lg:grid-cols-4 divide-x divide-white/10">
+
+        <div class="py-8 px-6 lg:px-10 text-center lg:text-left">
+          <div class="font-heading text-4xl font-black text-white leading-none mb-1">&lt;&nbsp;60</div>
+          <div class="text-primary text-xs font-bold uppercase tracking-wider mt-2">min op locatie</div>
+          <div class="text-blue-200/60 text-xs mt-1">Bij spoedaanvragen</div>
+        </div>
+
+        <div class="py-8 px-6 lg:px-10 text-center lg:text-left">
+          <div class="font-heading text-4xl font-black text-white leading-none mb-1">24/7</div>
+          <div class="text-primary text-xs font-bold uppercase tracking-wider mt-2">Bereikbaar</div>
+          <div class="text-blue-200/60 text-xs mt-1">Altijd een mens aan de lijn</div>
+        </div>
+
+        <div class="py-8 px-6 lg:px-10 text-center lg:text-left">
+          <div class="font-heading text-4xl font-black text-white leading-none mb-1">9+</div>
+          <div class="text-primary text-xs font-bold uppercase tracking-wider mt-2">Sectoren</div>
+          <div class="text-blue-200/60 text-xs mt-1">Van logistiek tot horeca</div>
+        </div>
+
+        <div class="py-8 px-6 lg:px-10 text-center lg:text-left">
+          <div class="font-heading text-4xl font-black text-white leading-none mb-1">100%</div>
+          <div class="text-primary text-xs font-bold uppercase tracking-wider mt-2">Garantie</div>
+          <div class="text-blue-200/60 text-xs mt-1">Of u betaalt niet</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ DIENSTEN ═══ -->
+  <section class="section-padding bg-cream">
+    <div class="container-custom">
+
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
+        <div>
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-1 bg-primary flex-shrink-0"></div>
+            <span class="text-primary text-xs font-bold tracking-widest uppercase">Wat wij leveren</span>
+          </div>
+          <h2 class="font-heading text-3xl sm:text-4xl font-black text-navy">
+            Voor elke fysieke klus
+          </h2>
+        </div>
+        <a href="/diensten/" class="inline-flex items-center gap-2 text-sm text-primary hover:text-primary-dark font-bold flex-shrink-0">
+          Alle diensten bekijken
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {siteConfig.diensten.slice(0, 6).map((dienst) => (
+          <div class="group bg-white border border-gray-200 hover:border-primary transition-colors duration-200 p-6" style="border-left-width: 4px; border-left-color: #e5e7eb; transition: border-left-color 0.2s;">
+            <div class="group-hover:[border-left-color:#fe7303]">
+              <h3 class="font-heading font-bold text-navy text-base mb-2">{dienst.title}</h3>
+              <p class="text-gray-500 text-sm leading-relaxed">{dienst.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ HOE HET WERKT ═══ -->
+  <section class="section-padding bg-white">
+    <div class="container-custom">
+
+      <div class="mb-12">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-1 bg-primary flex-shrink-0"></div>
+          <span class="text-primary text-xs font-bold tracking-widest uppercase">Hoe werkt het</span>
+        </div>
+        <h2 class="font-heading text-3xl sm:text-4xl font-black text-navy">
+          Van aanvraag naar werkvloer in 3 stappen
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-0 relative">
+        <!-- Verbindingslijn desktop -->
+        <div class="hidden md:block absolute top-8 left-[16.67%] right-[16.67%] h-px bg-gray-200 z-0"></div>
+
+        {leveringsmethodes.map((stap) => (
+          <div class="relative z-10 flex flex-col items-start md:items-center text-left md:text-center px-0 md:px-8 pb-10 md:pb-0">
+            <!-- Genummerde cirkel -->
+            <div class="w-16 h-16 rounded-full border-4 border-primary bg-white flex items-center justify-center flex-shrink-0 mb-6">
+              <span class="font-heading font-black text-primary text-lg leading-none">{stap.stap}</span>
+            </div>
+            <h3 class="font-heading font-bold text-navy text-base mb-2">{stap.label}</h3>
+            <p class="text-gray-500 text-sm leading-relaxed max-w-xs">{stap.desc}</p>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ TARIEVEN PREVIEW ═══ -->
+  <section class="section-padding bg-cream bg-grid-light">
+    <div class="container-custom">
+
+      <div class="mb-12">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-1 bg-primary flex-shrink-0"></div>
+          <span class="text-primary text-xs font-bold tracking-widest uppercase">Transparante prijzen</span>
+        </div>
+        <h2 class="font-heading text-3xl sm:text-4xl font-black text-navy mb-2">
+          U weet vooraf precies wat het kost
+        </h2>
+        <p class="text-gray-600 text-base">Geen kleine lettertjes. Geen verrassingen achteraf.</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        {siteConfig.tarieven.map((tarief) => (
+          <div class:list={[
+            "relative border-2 p-7 flex flex-col",
+            tarief.kleur === 'oranje'
+              ? "bg-primary border-primary"
+              : tarief.kleur === 'navy'
+              ? "border-navy bg-navy"
+              : "bg-white border-gray-200"
+          ]}>
+            {tarief.badge && (
+              <span class:list={[
+                "absolute -top-3.5 left-4 px-3 py-1 text-xs font-black uppercase tracking-wider",
+                tarief.kleur === 'oranje' ? "bg-white text-primary" : "bg-primary text-white"
+              ]}>
+                {tarief.badge}
+              </span>
+            )}
+
+            <p class:list={[
+              "text-xs font-bold uppercase tracking-widest mb-4",
+              tarief.kleur !== 'wit' ? "text-white/60" : "text-gray-400"
+            ]}>
+              {tarief.naam}
+            </p>
+
+            <div class="flex items-baseline gap-1 mb-3">
+              <span class:list={[
+                "font-heading text-4xl font-black leading-none",
+                tarief.kleur === 'oranje' ? "text-white" : tarief.kleur === 'navy' ? "text-white" : "text-primary"
+              ]}>
+                {tarief.prijs}
+              </span>
+              <span class:list={["text-sm", tarief.kleur !== 'wit' ? "text-white/60" : "text-gray-500"]}>
+                {tarief.per}
+              </span>
+            </div>
+
+            <p class:list={["text-sm leading-relaxed", tarief.kleur !== 'wit' ? "text-white/80" : "text-gray-600"]}>
+              {tarief.description}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      <a href="/tarieven/" class="inline-flex items-center gap-2 text-sm text-navy hover:text-primary font-bold transition-colors">
+        Alles over tarieven en wat er altijd bij inbegrepen zit
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+        </svg>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ═══ OVER ONS TEASER ═══ -->
+  <section class="section-padding bg-white">
+    <div class="container-custom">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+        <!-- Tekst -->
+        <div>
+          <div class="flex items-center gap-3 mb-5">
+            <div class="w-10 h-1 bg-primary flex-shrink-0"></div>
+            <span class="text-primary text-xs font-bold tracking-widest uppercase">Ons verhaal</span>
+          </div>
+          <h2 class="font-heading text-3xl sm:text-4xl font-black text-navy mb-5">
+            Opgericht vanuit de werkvloer zelf
+          </h2>
+          <p class="text-gray-600 leading-relaxed mb-4">
+            Zentura is opgericht door <strong class="text-navy">Sjoerd Stel</strong>, zelf jarenlang uitzendkracht op de werkvloer in de logistiek. Hij weet als geen ander wat uitzendbureaus nodig hebben: een partner die <strong class="text-navy">levert wat is afgesproken</strong>, op tijd en zonder gedoe.
+          </p>
+          <p class="text-gray-500 text-sm leading-relaxed mb-8">
+            Geen cv-bureau. Geen vage beloftes. Gewoon de juiste mensen op de juiste plek, snel geregeld en goed begeleid.
+          </p>
+          <a href="/over-ons/" class="inline-flex items-center gap-2 text-sm text-primary hover:text-primary-dark font-bold transition-colors">
+            Lees ons verhaal
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+            </svg>
+          </a>
+        </div>
+
+        <!-- Kernwaarden lijst -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {[
+            { w: 'Eerlijk', d: 'Geen mooie praatjes. We zeggen wat we doen en we doen wat we zeggen.' },
+            { w: 'Snel', d: 'Dezelfde dag nog iemand op de werkvloer. Geen overbodige procedures.' },
+            { w: 'Betrouwbaar', d: 'Bij uitval regelen wij vervanging. Elke keer. Geen excuses.' },
+            { w: 'Persoonlijk', d: 'Vast aanspreekpunt. Geen callcenter, geen wachtrij.' },
+          ].map((v) => (
+            <div class="border-l-4 border-primary pl-5 py-2">
+              <p class="font-heading font-black text-navy text-base mb-1">{v.w}</p>
+              <p class="text-gray-500 text-sm leading-relaxed">{v.d}</p>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FINAL CTA ═══ -->
+  <!-- Achtergrond: groot faded getal als watermark — industrieel, breekt met footer, geen geometrische vormen -->
+  <section class="py-20 relative overflow-hidden" style="background-color: #161d30; border-top: 4px solid #fe7303;">
+    <!-- Watermark 24/7 -->
+    <div class="absolute inset-0 flex items-center justify-end pointer-events-none select-none overflow-hidden" aria-hidden="true">
+      <span class="font-heading font-black text-white leading-none pr-4" style="font-size: clamp(120px, 22vw, 240px); opacity: 0.04;">24/7</span>
+    </div>
+    <div class="container-custom relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+        <div>
+          <div class="w-12 h-1 bg-primary mb-6"></div>
+          <h2 class="font-heading text-3xl sm:text-4xl font-black text-white mb-4">
+            Vandaag nog personeel nodig?
+          </h2>
+          <p class="text-gray-400 text-lg leading-relaxed">
+            Bel direct voor spoed of stuur een aanvraag. Wij reageren binnen 5 minuten — ook buiten kantooruren.
+          </p>
+        </div>
+
+        <div class="flex flex-col gap-4">
+          <!-- Telefoonnummers prominent -->
+          <a
+            href={`tel:${siteConfig.phone.bussum}`}
+            class="flex items-center gap-4 bg-primary hover:bg-primary-dark text-white font-bold px-6 py-4 rounded transition-colors"
+          >
+            <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+            </svg>
+            <div>
+              <div class="text-xs font-normal text-white/70 uppercase tracking-wider">Bussum — 24/7 spoed</div>
+              <div class="font-heading text-lg font-black">{siteConfig.phone.display_bussum}</div>
+            </div>
+          </a>
+          <a
+            href={`tel:${siteConfig.phone.heerenveen}`}
+            class="flex items-center gap-4 border-2 border-white/20 hover:border-white/50 text-white font-bold px-6 py-4 rounded transition-colors"
+          >
+            <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+            </svg>
+            <div>
+              <div class="text-xs font-normal text-white/50 uppercase tracking-wider">Heerenveen — 24/7 spoed</div>
+              <div class="font-heading text-lg font-black">{siteConfig.phone.display_heerenveen}</div>
+            </div>
+          </a>
+          <a
+            href="/contact/"
+            class="inline-flex items-center justify-center gap-2 border-2 border-white/15 hover:border-primary text-gray-300 hover:text-white font-semibold px-6 py-3.5 rounded transition-colors text-sm"
+          >
+            Of stuur een aanvraagformulier
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+            </svg>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  /* Dienst kaarten: oranje linkerborder bij hover via pure CSS */
+  .group:hover {
+    border-left-color: #fe7303 !important;
+  }
+</style>

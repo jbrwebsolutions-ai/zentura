@@ -1,0 +1,164 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { siteConfig } from '../config/site';
+
+const title = 'Diensten';
+const description = 'Zentura levert personeel voor magazijn, logistiek, bezorging, events, schoonmaak, retail en meer. 9+ sectoren, 3 leveringsmethodes.';
+
+const branches = [
+  'E-commerce & fulfilment', 'Transport & logistiek', 'Food & retail',
+  'Evenementen', 'Facilitair & schoonmaak', 'Productie & industrie',
+  'Bouw & verhuizing', 'Agrarisch', 'Horeca & catering',
+];
+
+const iconPaths: Record<string, string> = {
+  warehouse: 'M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4',
+  truck: 'M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0zM13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1',
+  conveyor: 'M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4',
+  events: 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z',
+  cleaning: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6',
+  retail: 'M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z',
+  moving: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6',
+  agri: 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+  horeca: 'M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4',
+};
+---
+
+<Layout title={title} description={description}>
+
+  <!-- ═══ PAGE HERO ═══ -->
+  <section class="relative py-16 sm:py-24 overflow-hidden" style="background-color: #052771; border-bottom: 4px solid #fe7303;">
+    <!-- Watermark -->
+    <div class="absolute inset-0 flex items-center overflow-hidden pointer-events-none select-none" aria-hidden="true">
+      <span class="font-heading font-black text-white leading-none" style="font-size: clamp(80px, 18vw, 180px); opacity: 0.04; white-space: nowrap; padding-left: 1rem;">WERK</span>
+    </div>
+    <div class="container-custom relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <!-- Links: heading -->
+        <div class="border-l-4 border-primary pl-6">
+          <p class="text-primary text-xs font-bold uppercase tracking-widest mb-3">Zentura — Wat wij leveren</p>
+          <h1 class="font-heading text-5xl sm:text-6xl font-black text-white leading-tight">
+            Diensten
+          </h1>
+          <p class="text-blue-200/70 text-lg mt-4 leading-relaxed">
+            Voor elke fysieke klus het juiste personeel, snel inzetbaar en goed begeleid in Noord Holland, Friesland en Groningen.
+          </p>
+        </div>
+        <!-- Rechts: kwaliteiten van de geleverde medewerkers -->
+        <div class="hidden lg:grid grid-cols-2 gap-3">
+          {[
+            { label: 'MBO opgeleid', sub: 'Geselecteerd op opleiding en motivatie' },
+            { label: 'VOG gecertificeerd', sub: 'Gescreend en betrouwbaar inzetbaar' },
+            { label: 'Eigen transport', sub: 'Wij verzorgen vervoer naar de locatie' },
+            { label: '100% leveringsgarantie', sub: 'Niet tevreden? Wij lossen het op' },
+          ].map((q) => (
+            <div class="border border-white/10 bg-white/5 p-4">
+              <p class="font-heading font-black text-white text-sm mb-1">{q.label}</p>
+              <p class="text-blue-200/50 text-xs leading-relaxed">{q.sub}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SNELLE FEITEN BALK ═══ -->
+  <div class="bg-white border-b-2 border-gray-100">
+    <div class="container-custom">
+      <div class="flex flex-wrap divide-x divide-gray-100">
+        <div class="py-5 px-8 text-center">
+          <span class="font-heading font-black text-primary text-2xl">9+</span>
+          <span class="text-gray-500 text-sm ml-2">sectoren</span>
+        </div>
+        <div class="py-5 px-8 text-center">
+          <span class="font-heading font-black text-primary text-2xl">3</span>
+          <span class="text-gray-500 text-sm ml-2">leveringsmethodes</span>
+        </div>
+        <div class="py-5 px-8 text-center">
+          <span class="font-heading font-black text-primary text-2xl">&lt;60</span>
+          <span class="text-gray-500 text-sm ml-2">min bij spoed</span>
+        </div>
+        <div class="py-5 px-8 text-center">
+          <span class="font-heading font-black text-primary text-2xl">24/7</span>
+          <span class="text-gray-500 text-sm ml-2">bereikbaar</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ DIENSTEN GRID ═══ -->
+  <section class="section-padding bg-cream">
+    <div class="container-custom">
+
+      <p class="text-gray-600 text-base mb-10 max-w-2xl">
+        Zentura levert gemotiveerde vakmensen voor negen sectoren in Noord Holland, Friesland en Groningen. Hieronder vindt u een overzicht van de werkzaamheden waarvoor wij personeel beschikbaar stellen.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {siteConfig.diensten.map((dienst) => (
+          <div class="group bg-white border-2 border-gray-100 hover:border-primary p-7 flex gap-5 transition-colors duration-200">
+            <div class="w-12 h-12 bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary group-hover:text-white transition-colors duration-200">
+              <svg class="w-5 h-5 text-primary group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d={iconPaths[dienst.icon] || 'M5 13l4 4L19 7'} />
+              </svg>
+            </div>
+            <div>
+              <h2 class="font-heading font-bold text-navy text-base mb-2 group-hover:text-primary transition-colors">{dienst.title}</h2>
+              <p class="text-gray-500 text-sm leading-relaxed">{dienst.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ SERVICEGEBIED ═══ -->
+  <section class="py-20 border-t-4 border-primary" style="background-color: #052771;">
+    <div class="container-custom">
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+        <!-- Links: statement -->
+        <div>
+          <div class="w-12 h-1 bg-primary mb-6"></div>
+          <h2 class="font-heading text-4xl sm:text-5xl font-black text-white leading-tight mb-5">
+            Actief in drie provincies. Beschikbaar vandaag.
+          </h2>
+          <p class="text-blue-200/70 text-base leading-relaxed mb-8">
+            Wij leveren personeel in Noord Holland, Friesland en Groningen. Spoedaanvragen, tijdelijke projecten en vaste plaatsingen — allemaal binnen ons vaste servicegebied.
+          </p>
+          <a
+            href="/contact/"
+            class="inline-flex items-center gap-2 px-6 py-3.5 bg-primary hover:bg-primary-dark text-white font-bold text-sm transition-colors"
+          >
+            Aanvraag indienen
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+            </svg>
+          </a>
+        </div>
+
+        <!-- Rechts: provincie + steden -->
+        <div class="flex flex-col gap-4">
+          {[
+            { provincie: 'Noord Holland', steden: ['Amsterdam', 'Haarlem', 'Zaandam', 'Alkmaar', 'Purmerend'] },
+            { provincie: 'Friesland',     steden: ['Leeuwarden', 'Heerenveen', 'Sneek', 'Drachten'] },
+            { provincie: 'Groningen',     steden: ['Groningen', 'Veendam', 'Winschoten', 'Stadskanaal'] },
+          ].map((p) => (
+            <div class="border-l-4 border-primary bg-white/5 px-5 py-4">
+              <p class="font-heading font-black text-white text-sm mb-3">{p.provincie}</p>
+              <div class="flex flex-wrap gap-2">
+                {p.steden.map((s) => (
+                  <span class="text-xs font-medium text-blue-200/70 border border-white/15 px-2.5 py-1">{s}</span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</Layout>

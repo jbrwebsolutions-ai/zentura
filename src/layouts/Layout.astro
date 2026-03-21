@@ -1,0 +1,106 @@
+---
+import '../styles/global.css';
+import { siteConfig } from '../config/site';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CookieConsent from '../components/CookieConsent.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+}
+
+const { title, description = siteConfig.description, image = '/images/logo.png' } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!DOCTYPE html>
+<html lang="nl-NL">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <title>{title} | {siteConfig.name}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={`${title} | ${siteConfig.name}`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(image, Astro.site)} />
+    <meta property="og:locale" content="nl_NL" />
+
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": ["EmploymentAgency", "LocalBusiness"],
+            "name": "Zentura BV",
+            "image": "https://zentura.nl/images/logo.png",
+            "@id": "https://zentura.nl/#organization",
+            "url": "https://zentura.nl",
+            "telephone": "+31617752644",
+            "email": "Verkoop@zenturabv.com",
+            "address": [
+              {
+                "@type": "PostalAddress",
+                "streetAddress": "Torenlaan 5B",
+                "addressLocality": "Bussum",
+                "addressCountry": "NL"
+              },
+              {
+                "@type": "PostalAddress",
+                "streetAddress": "Leeuwarderstraatweg 129",
+                "addressLocality": "Heerenveen",
+                "addressCountry": "NL"
+              }
+            ],
+            "areaServed": { "@type": "Country", "name": "Netherlands" },
+            "description": "Zentura levert gemotiveerde vakmensen voor magazijn, logistiek, events, schoonmaak en meer.",
+            "openingHoursSpecification": {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+              "opens": "00:00",
+              "closes": "23:59"
+            },
+            "priceRange": "€€"
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://zentura.nl/#website",
+            "url": "https://zentura.nl",
+            "name": "Zentura BV",
+            "description": "Altijd personeel. Nooit excuses.",
+            "publisher": { "@id": "https://zentura.nl/#organization" },
+            "inLanguage": "nl-NL"
+          }
+        ]
+      }
+    </script>
+
+    <!-- Google Fonts — non-render-blocking -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" as="style" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" /></noscript>
+
+    <slot name="head" />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    <CookieConsent />
+  </body>
+</html>

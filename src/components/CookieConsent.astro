@@ -1,0 +1,99 @@
+---
+// Cookie consent component - GDPR compliant
+---
+
+<div
+  id="cookie-consent"
+  class="fixed bottom-0 left-0 right-0 z-50 bg-white border-t-2 border-gray-100 shadow-2xl transform translate-y-full transition-transform duration-300"
+  role="dialog"
+  aria-labelledby="cookie-title"
+  aria-describedby="cookie-description"
+>
+  <div class="max-w-7xl mx-auto px-4 py-3">
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+      <div class="flex-1">
+        <h2 id="cookie-title" class="text-navy-deeper font-semibold text-sm mb-1">
+          Cookie instellingen
+        </h2>
+        <p id="cookie-description" class="text-gray-600 text-xs sm:text-sm">
+          Deze website gebruikt cookies voor analyse en functionaliteit.
+          <a href="/privacy/" class="text-primary hover:text-primary-dark underline">
+            Meer informatie
+          </a>
+        </p>
+      </div>
+
+      <div class="flex gap-2 w-full sm:w-auto">
+        <button
+          type="button"
+          id="cookie-accept-necessary"
+          class="flex-1 sm:flex-none px-3 py-1.5 text-xs font-medium text-navy-deeper hover:bg-gray-50 border border-gray-300 rounded-md transition-colors"
+        >
+          Alleen noodzakelijk
+        </button>
+        <button
+          type="button"
+          id="cookie-accept-all"
+          class="flex-1 sm:flex-none px-4 py-1.5 text-xs font-medium bg-primary hover:bg-primary-dark text-white rounded-md transition-colors"
+        >
+          Accepteren
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const COOKIE_KEY = 'zentura-cookie-consent';
+
+  interface CookieConsent {
+    necessary: boolean;
+    analytics: boolean;
+    marketing: boolean;
+    timestamp: number;
+  }
+
+  function getConsent(): CookieConsent | null {
+    const stored = localStorage.getItem(COOKIE_KEY);
+    if (!stored) return null;
+    try {
+      const data = JSON.parse(stored) as CookieConsent;
+      // Vervalt na 13 maanden
+      const thirteenMonths = 13 * 30 * 24 * 60 * 60 * 1000;
+      if (Date.now() - data.timestamp > thirteenMonths) {
+        localStorage.removeItem(COOKIE_KEY);
+        return null;
+      }
+      return data;
+    } catch {
+      return null;
+    }
+  }
+
+  function setConsent(consent: Omit<CookieConsent, 'timestamp'>) {
+    const data: CookieConsent = { ...consent, timestamp: Date.now() };
+    localStorage.setItem(COOKIE_KEY, JSON.stringify(data));
+  }
+
+  function showBanner() {
+    document.getElementById('cookie-consent')?.classList.remove('translate-y-full');
+  }
+
+  function hideBanner() {
+    document.getElementById('cookie-consent')?.classList.add('translate-y-full');
+  }
+
+  if (!getConsent()) {
+    setTimeout(showBanner, 1000);
+  }
+
+  document.getElementById('cookie-accept-all')?.addEventListener('click', () => {
+    setConsent({ necessary: true, analytics: true, marketing: true });
+    hideBanner();
+  });
+
+  document.getElementById('cookie-accept-necessary')?.addEventListener('click', () => {
+    setConsent({ necessary: true, analytics: false, marketing: false });
+    hideBanner();
+  });
+</script>

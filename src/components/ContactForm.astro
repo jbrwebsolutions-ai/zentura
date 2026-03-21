@@ -1,0 +1,252 @@
+---
+interface Props {
+  turnstileSiteKey?: string;
+  apiEndpoint?: string;
+}
+
+const {
+  turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '',
+  apiEndpoint = '/api/contact',
+} = Astro.props;
+
+const hasTurnstile = turnstileSiteKey.length > 0;
+
+const dienstOpties = [
+  'Laden, lossen & orderpicken',
+  'Bezorging & transport',
+  'Lijnwerk & inpakservice',
+  'Events & opbouw',
+  'Schoonmaak & facilitair',
+  'Retail support',
+  'Verhuizing & ruiming',
+  'Agrarisch & seizoenswerk',
+  'Horeca support',
+  'Anders / meerdere',
+];
+
+const aantalOpties = ['1 persoon', '2–3 personen', '4–5 personen', '6–10 personen', '10+ personen'];
+const duurOpties = ['1 dag', 'Meerdere dagen', '1–2 weken', '1 maand', 'Langer / onbepaald'];
+---
+
+<form
+  id="contact-form"
+  data-api-endpoint={apiEndpoint}
+  data-has-turnstile={hasTurnstile.toString()}
+  class="space-y-0"
+>
+  <!-- Honeypot -->
+  <input type="text" name="website" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+  <!-- ─── Sectie 1: Uw bedrijf ─── -->
+  <div class="mb-8">
+    <h3 class="font-heading font-bold text-navy text-base mb-5 flex items-center gap-2">
+      <span class="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center text-primary text-xs font-bold">1</span>
+      Uw bedrijf
+    </h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div>
+        <label for="bedrijf" class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">
+          Bedrijfsnaam <span class="text-primary">*</span>
+        </label>
+        <input type="text" id="bedrijf" name="bedrijf" required
+          class="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg text-navy text-sm placeholder-gray-400 focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/15 outline-none transition-all"
+          placeholder="Uw bedrijf" />
+      </div>
+      <div>
+        <label for="naam" class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">
+          Contactpersoon <span class="text-primary">*</span>
+        </label>
+        <input type="text" id="naam" name="naam" required
+          class="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg text-navy text-sm placeholder-gray-400 focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/15 outline-none transition-all"
+          placeholder="Uw naam" />
+      </div>
+      <div>
+        <label for="telefoon" class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">
+          Telefoonnummer <span class="text-primary">*</span>
+        </label>
+        <input type="tel" id="telefoon" name="telefoon" required
+          class="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg text-navy text-sm placeholder-gray-400 focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/15 outline-none transition-all"
+          placeholder="+31 6 ..." />
+      </div>
+      <div>
+        <label for="email" class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">
+          E-mailadres <span class="text-primary">*</span>
+        </label>
+        <input type="email" id="email" name="email" required
+          class="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg text-navy text-sm placeholder-gray-400 focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/15 outline-none transition-all"
+          placeholder="uw@bedrijf.nl" />
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── Sectie 2: De opdracht ─── -->
+  <div class="mb-8 pt-8 border-t border-gray-100">
+    <h3 class="font-heading font-bold text-navy text-base mb-5 flex items-center gap-2">
+      <span class="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center text-primary text-xs font-bold">2</span>
+      De opdracht
+    </h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div>
+        <label for="soort_werk" class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">
+          Soort werkzaamheden
+        </label>
+        <select id="soort_werk" name="soort_werk"
+          class="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg text-navy text-sm focus:border-primary focus:ring-2 focus:ring-primary/15 outline-none transition-all">
+          <option value="">Selecteer type werk</option>
+          {dienstOpties.map((d) => <option value={d}>{d}</option>)}
+        </select>
+      </div>
+      <div>
+        <label for="aantal" class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">
+          Aantal personen
+        </label>
+        <select id="aantal" name="aantal"
+          class="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg text-navy text-sm focus:border-primary focus:ring-2 focus:ring-primary/15 outline-none transition-all">
+          <option value="">Selecteer aantal</option>
+          {aantalOpties.map((a) => <option value={a}>{a}</option>)}
+        </select>
+      </div>
+      <div>
+        <label for="startdatum" class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">
+          Gewenste startdatum
+        </label>
+        <input type="text" id="startdatum" name="startdatum"
+          class="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg text-navy text-sm placeholder-gray-400 focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/15 outline-none transition-all"
+          placeholder="bv. zo snel mogelijk / 01-04-2026" />
+      </div>
+      <div>
+        <label for="duur" class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">
+          Verwachte duur
+        </label>
+        <select id="duur" name="duur"
+          class="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg text-navy text-sm focus:border-primary focus:ring-2 focus:ring-primary/15 outline-none transition-all">
+          <option value="">Selecteer duur</option>
+          {duurOpties.map((d) => <option value={d}>{d}</option>)}
+        </select>
+      </div>
+    </div>
+
+    <!-- Urgentie radio -->
+    <div class="mt-4">
+      <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">
+        Urgentie / tarief
+      </label>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        {[
+          { value: 'spoed', label: 'Spoed', sub: 'Vandaag/morgen — €40/u', highlight: true },
+          { value: 'standaard', label: 'Standaard', sub: 'Deze week — €30/u', highlight: false },
+          { value: 'project', label: 'Project & Vast', sub: 'Langdurig — €25/u', highlight: false },
+        ].map((opt) => (
+          <label class:list={[
+            "flex items-center gap-3 p-4 rounded-xl border cursor-pointer transition-all has-[:checked]:border-primary has-[:checked]:bg-orange-50/50",
+            "border-gray-200 hover:border-primary/40"
+          ]}>
+            <input type="radio" name="urgentie" value={opt.value}
+              class="w-4 h-4 accent-primary flex-shrink-0" />
+            <div>
+              <p class="text-sm font-semibold text-navy">{opt.label}</p>
+              <p class="text-xs text-gray-400">{opt.sub}</p>
+            </div>
+          </label>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── Sectie 3: Locatie & toelichting ─── -->
+  <div class="mb-8 pt-8 border-t border-gray-100">
+    <h3 class="font-heading font-bold text-navy text-base mb-5 flex items-center gap-2">
+      <span class="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center text-primary text-xs font-bold">3</span>
+      Locatie & toelichting
+    </h3>
+    <div class="mb-4">
+      <label for="locatie" class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">
+        Stad / regio
+      </label>
+      <input type="text" id="locatie" name="locatie"
+        class="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg text-navy text-sm placeholder-gray-400 focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/15 outline-none transition-all"
+        placeholder="bv. Amsterdam, Noord-Holland" />
+    </div>
+    <div>
+      <label for="bericht" class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">
+        Extra informatie <span class="text-primary">*</span>
+      </label>
+      <textarea id="bericht" name="bericht" required rows="4"
+        class="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg text-navy text-sm placeholder-gray-400 focus:border-primary focus:bg-white focus:ring-2 focus:ring-primary/15 outline-none transition-all resize-none"
+        placeholder="Beschrijf de werkzaamheden, bijzondere eisen of andere relevante informatie..."></textarea>
+    </div>
+  </div>
+
+  <!-- Turnstile -->
+  {hasTurnstile && (
+    <div class="mb-5">
+      <div class="cf-turnstile" data-sitekey={turnstileSiteKey} data-theme="light"
+        data-callback="onTurnstileSuccess" data-expired-callback="onTurnstileExpired"></div>
+      <p id="turnstile-error" class="hidden text-red-600 text-sm mt-1">Verifieer dat u geen robot bent.</p>
+    </div>
+  )}
+
+  <!-- Submit -->
+  <button type="submit" id="submit-button"
+    class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-primary hover:bg-primary-dark text-white font-semibold rounded-lg transition-colors disabled:opacity-60 disabled:cursor-not-allowed text-sm shadow-md shadow-primary/20">
+    Aanvraag versturen
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+    </svg>
+  </button>
+
+  <!-- Feedback -->
+  <div id="form-success" class="hidden mt-5 p-4 bg-green-50 border border-green-200 rounded-xl">
+    <p class="text-green-800 font-semibold text-sm">✓ Aanvraag ontvangen! We nemen zo snel mogelijk contact op.</p>
+  </div>
+  <div id="form-error" class="hidden mt-5 p-4 bg-red-50 border border-red-200 rounded-xl">
+    <p class="text-red-700 font-medium text-sm">Er is iets misgegaan. Probeer opnieuw of bel ons direct.</p>
+  </div>
+</form>
+
+{hasTurnstile && (
+  <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+)}
+
+<script>
+  let turnstileToken: string | null = null;
+  (window as any).onTurnstileSuccess = (t: string) => { turnstileToken = t; document.getElementById('turnstile-error')?.classList.add('hidden'); };
+  (window as any).onTurnstileExpired = () => { turnstileToken = null; };
+
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const successEl = document.getElementById('form-success');
+  const errorEl = document.getElementById('form-error');
+  const submitBtn = document.getElementById('submit-button') as HTMLButtonElement;
+  const originalText = submitBtn?.innerHTML || '';
+  const endpoint = form?.dataset.apiEndpoint || '/api/contact';
+  const hasTurnstile = form?.dataset.hasTurnstile === 'true';
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+    if (formData.get('website')) return;
+    if (hasTurnstile && !turnstileToken) { document.getElementById('turnstile-error')?.classList.remove('hidden'); return; }
+    if (turnstileToken) formData.append('cf-turnstile-response', turnstileToken);
+
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.innerHTML = 'Verzenden...'; }
+    successEl?.classList.add('hidden');
+    errorEl?.classList.add('hidden');
+
+    try {
+      const res = await fetch(endpoint, { method: 'POST', body: formData });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        successEl?.classList.remove('hidden');
+        form.reset();
+        if (hasTurnstile && (window as any).turnstile) { (window as any).turnstile.reset(); turnstileToken = null; }
+      } else {
+        const p = errorEl?.querySelector('p');
+        if (p && data.error) p.textContent = data.error;
+        errorEl?.classList.remove('hidden');
+      }
+    } catch { errorEl?.classList.remove('hidden'); }
+    finally {
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.innerHTML = originalText; }
+    }
+  });
+</script>

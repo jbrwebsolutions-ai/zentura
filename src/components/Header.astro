@@ -1,0 +1,117 @@
+---
+import { siteConfig } from '../config/site';
+
+const currentPath = Astro.url.pathname;
+---
+
+<header
+  id="site-header"
+  class="fixed top-0 left-0 right-0 z-50 bg-white/97 backdrop-blur-sm border-b border-gray-100 transition-shadow duration-300"
+>
+  <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20">
+
+      <!-- Logo -->
+      <a href="/" class="flex items-center flex-shrink-0">
+        <img src="/images/logo.png" alt="Zentura BV" class="h-12 w-auto" />
+      </a>
+
+      <!-- Desktop nav -->
+      <div class="hidden md:flex items-center gap-7">
+        {siteConfig.navigation.map((item) => (
+          <a
+            href={item.href}
+            class:list={[
+              "text-sm font-medium transition-colors duration-150",
+              currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href))
+                ? "text-primary"
+                : "text-gray-600 hover:text-navy"
+            ]}
+          >
+            {item.name}
+          </a>
+        ))}
+
+        <a
+          href="/contact/"
+          class="inline-flex items-center gap-1.5 px-5 py-2 bg-primary hover:bg-primary-dark text-white text-sm font-semibold rounded-lg transition-colors shadow-sm shadow-primary/20"
+        >
+          Personeel aanvragen
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Mobile button -->
+      <button
+        type="button"
+        class="md:hidden p-2 text-gray-600 hover:text-primary transition-colors"
+        aria-label="Menu openen"
+        aria-expanded="false"
+        id="mobile-menu-button"
+      >
+        <svg class="w-5 h-5" id="menu-icon-open" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg class="w-5 h-5 hidden" id="menu-icon-close" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile menu -->
+    <div class="md:hidden hidden" id="mobile-menu">
+      <div class="py-4 space-y-1 border-t border-gray-100">
+        {siteConfig.navigation.map((item) => (
+          <a
+            href={item.href}
+            class:list={[
+              "block px-3 py-2.5 text-sm font-medium rounded-lg transition-colors",
+              currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href))
+                ? "text-primary bg-orange-50"
+                : "text-gray-700 hover:text-primary hover:bg-gray-50"
+            ]}
+          >
+            {item.name}
+          </a>
+        ))}
+        <div class="pt-2 px-3">
+          <a href="/contact/" class="flex items-center justify-center gap-2 w-full py-2.5 bg-primary hover:bg-primary-dark text-white text-sm font-semibold rounded-lg transition-colors">
+            Personeel aanvragen
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<div class="h-20"></div>
+
+<script>
+  const header = document.getElementById('site-header');
+  const button = document.getElementById('mobile-menu-button');
+  const menu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('menu-icon-open');
+  const iconClose = document.getElementById('menu-icon-close');
+
+  // Scroll shadow
+  window.addEventListener('scroll', () => {
+    if (header) {
+      if (window.scrollY > 20) {
+        header.classList.add('shadow-md', 'shadow-black/5');
+      } else {
+        header.classList.remove('shadow-md', 'shadow-black/5');
+      }
+    }
+  }, { passive: true });
+
+  // Mobile toggle
+  button?.addEventListener('click', () => {
+    const isOpen = !menu?.classList.contains('hidden');
+    menu?.classList.toggle('hidden');
+    iconOpen?.classList.toggle('hidden');
+    iconClose?.classList.toggle('hidden');
+    button.setAttribute('aria-expanded', String(!isOpen));
+  });
+</script>
