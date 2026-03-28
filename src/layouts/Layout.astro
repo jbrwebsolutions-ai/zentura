@@ -11,7 +11,7 @@ interface Props {
   image?: string;
 }
 
-const { title, description = siteConfig.description, image = '/images/logo.png' } = Astro.props;
+const { title, description = siteConfig.description, image = '/images/logo.webp' } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
@@ -44,7 +44,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
           {
             "@type": ["EmploymentAgency", "LocalBusiness"],
             "name": "Zentura BV",
-            "image": "https://zentura.nl/images/logo.png",
+            "image": "https://zentura.nl/images/logo.webp",
             "@id": "https://zentura.nl/#organization",
             "url": "https://zentura.nl",
             "telephone": "+31617752644",

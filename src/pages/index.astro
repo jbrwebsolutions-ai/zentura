@@ -25,7 +25,7 @@ const leveringsmethodes = [
 ---
 
 <Layout title={title} description={description}>
-  <link slot="head" rel="preload" href="/images/hero.png" as="image" fetchpriority="high" />
+  <link slot="head" rel="preload" href="/images/hero.webp" as="image" type="image/webp" fetchpriority="high" />
 
   <!-- ═══ HERO ═══ -->
   <section class="relative min-h-[90vh] flex items-end overflow-hidden">
@@ -33,7 +33,7 @@ const leveringsmethodes = [
     <!-- Achtergrond foto -->
     <div class="absolute inset-0 z-0">
       <img
-        src="/images/hero.png"
+        src="/images/hero.webp"
         alt="Zentura — logistiek personeel aan het werk"
         class="w-full h-full object-cover"
         loading="eager"
