@@ -59,7 +59,7 @@ async function sendViaSES(
 
   const sesParams = new URLSearchParams({
     Action: 'SendEmail',
-    Source: env.AWS_SES_FROM_EMAIL,
+    Source: `Zentura BV <${env.AWS_SES_FROM_EMAIL}>`,
     'Destination.ToAddresses.member.1': params.to,
     'Message.Subject.Data': params.subject,
     'Message.Subject.Charset': 'UTF-8',
