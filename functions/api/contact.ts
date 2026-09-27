@@ -32,8 +32,17 @@ function recordSubmission(ip: string): void {
   submissions.set(ip, list);
 }
 
-async function verifyTurnstile(token: string, ip: string, secretKey?: string): Promise<boolean> {
-  if (!secretKey) return true;
+// Escape voor gebruikersinvoer in HTML-mails (voorkomt HTML-/linkinjectie)
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+async function verifyTurnstile(token: string, ip: string, secretKey: string): Promise<boolean> {
   try {
     const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
       method: 'POST',
@@ -148,7 +157,7 @@ function notificationHtml(d: AanvraagData): string {
     ${d.bericht ? `
     <div style="background:white;border:1px solid #e2e8f0;border-radius:8px;padding:16px;margin-bottom:16px;">
       <p style="font-size:11px;font-weight:bold;text-transform:uppercase;letter-spacing:0.08em;color:#94a3b8;margin:0 0 12px 0;">Extra informatie</p>
-      <div style="background:#f8fafc;padding:14px;border-radius:6px;font-size:14px;color:#334155;white-space:pre-wrap;">${d.bericht.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</div>
+      <div style="background:#f8fafc;padding:14px;border-radius:6px;font-size:14px;color:#334155;white-space:pre-wrap;">${d.bericht}</div>
     </div>` : ''}
 
   </div>
@@ -279,27 +288,25 @@ export async function onRequestPost(context: {
       return json({ success: false, error: 'Te veel aanvragen. Probeer het later opnieuw.' }, 429);
     }
 
-    // Turnstile
-    const turnstileToken = formData.get('cf-turnstile-response')?.toString();
-    if (turnstileToken) {
-      const valid = await verifyTurnstile(turnstileToken, ip, env.TURNSTILE_SECRET_KEY);
-      if (!valid) {
-        return json({ success: false, error: 'Verificatie mislukt. Ververs de pagina en probeer opnieuw.' }, 400);
-      }
+    // Turnstile: altijd verplicht (fail closed). Zonder secret of token wordt niets verstuurd.
+    const turnstileToken = formData.get('cf-turnstile-response')?.toString() ?? '';
+    if (!env.TURNSTILE_SECRET_KEY || !turnstileToken || !(await verifyTurnstile(turnstileToken, ip, env.TURNSTILE_SECRET_KEY))) {
+      return json({ success: false, error: 'Verificatie mislukt. Ververs de pagina en probeer opnieuw.' }, 400);
     }
 
-    // Velden
-    const naam       = formData.get('naam')?.toString().trim() || '';
-    const email      = formData.get('email')?.toString().trim() || '';
-    const telefoon   = formData.get('telefoon')?.toString().trim() || '';
-    const bedrijf    = formData.get('bedrijf')?.toString().trim() || '';
-    const soortWerk  = formData.get('soort_werk')?.toString().trim() || '';
-    const aantal     = formData.get('aantal')?.toString().trim() || '';
-    const startdatum = formData.get('startdatum')?.toString().trim() || '';
-    const duur       = formData.get('duur')?.toString().trim() || '';
-    const urgentieRaw = formData.get('urgentie')?.toString().trim() || '';
-    const locatie    = formData.get('locatie')?.toString().trim() || '';
-    const bericht    = formData.get('bericht')?.toString().trim() || '';
+    // Velden (met maximale lengte)
+    const field = (key: string, max = 200) => (formData.get(key)?.toString().trim() ?? '').slice(0, max);
+    const naam        = field('naam');
+    const email       = field('email', 254);
+    const telefoon    = field('telefoon', 50);
+    const bedrijf     = field('bedrijf');
+    const soortWerk   = field('soort_werk');
+    const aantal      = field('aantal', 50);
+    const startdatum  = field('startdatum', 50);
+    const duur        = field('duur', 100);
+    const urgentieRaw = field('urgentie', 50);
+    const locatie     = field('locatie');
+    const bericht     = field('bericht', 5000);
 
     // Validatie
     if (!naam || !email || !telefoon || !bedrijf) {
@@ -317,6 +324,10 @@ export async function onRequestPost(context: {
       soortWerk, aantal, startdatum, duur,
       urgentie, urgentieRaw, locatie, bericht,
     };
+    // Geëscapete kopie voor de HTML-mails; plain-text gebruikt de ruwe waarden
+    const aanvraagHtml = Object.fromEntries(
+      Object.entries(aanvraag).map(([k, v]) => [k, escapeHtml(v)])
+    ) as unknown as AanvraagData;
 
     const subject = `[${urgentieShort}] Aanvraag: ${bedrijf} — ${soortWerk || naam}`;
 
@@ -326,7 +337,7 @@ export async function onRequestPost(context: {
       replyTo: email,
       subject,
       text: notificationText(aanvraag),
-      html: notificationHtml(aanvraag),
+      html: notificationHtml(aanvraagHtml),
     });
 
     // Bevestiging naar aanvrager (non-blocking)
@@ -336,7 +347,7 @@ export async function onRequestPost(context: {
         replyTo: env.MAIL_TO,
         subject: 'Uw aanvraag is ontvangen — Zentura BV',
         text: confirmationText({ naam, urgentieRaw }),
-        html: confirmationHtml({ naam, urgentieRaw }),
+        html: confirmationHtml({ naam: escapeHtml(naam), urgentieRaw }),
       }).catch(console.error)
     );
 
